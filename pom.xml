@@ -15,8 +15,6 @@
     <description>tp-foyer</description>
     <properties>
         <java.version>17</java.version>
-        <sonar.host.url>http://192.168.50.4:9000</sonar.host.url> <!-- URL de SonarQube -->
-        <sonar.login>squ_9186e36c9f48a51e5ab25cd217c8e7327db8fbe9</sonar.login>
     </properties>
     <dependencies>
 
