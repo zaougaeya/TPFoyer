@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  tp-foyer:
+    image: tp-foyer:5.0.0
+    container_name: tp-foyer-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"  # Mappage du port 8082
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_HOST: tp-foyer-db  # Nom du service de la base de données
+    depends_on:
+      - tp-foyer-db
+    networks:
+      - tp-foyer-network
+
+  tp-foyer-db:
+    image: mysql:8.0
+    container_name: tp-foyer-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: tpFoyer
+      MYSQL_USER: tpuser
+      MYSQL_PASSWORD: tppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - tp-foyer-network
+
+networks:
+  tp-foyer-network:
+
+volumes:
+  db-data:
