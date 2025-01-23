@@ -1,12 +1,14 @@
-FROM openjdk:17-slim
+# Étape 1 : Utiliser une image de base Java
+FROM openjdk:17-jdk-alpine
 
-EXPOSE 8082
+# Étape 2 : Définir le répertoire de travail dans le conteneur
+WORKDIR /app
 
-#Installer curl
-RUN apt-get update && apt-get install -y curl
+# Étape 3 : Copier le fichier JAR généré dans le conteneur
+COPY target/tp-foyer-*.jar app.jar
 
-#Télécharger le JAR depuis le dépôt distant
-RUN curl -o tp-foyer-5.0.0.jar -L "http://192.168.50.4:8081/repository/maven-releases/tn/esprit/tp-foyer/5.0.0/tp-foyer-5.0.0.jar"
-#ADD target/tp-foyer-5.0.0.jar tp-foyer-5.0.0.jar
-#Définir le point d'entrée pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "/tp-foyer-5.0.0.jar"]
+# Étape 4 : Exposer le port (8080 est le port par défaut pour Spring Boot)
+EXPOSE 8080
+
+# Étape 5 : Commande à exécuter lorsque le conteneur démarre
+ENTRYPOINT ["java", "-jar", "app.jar"]
