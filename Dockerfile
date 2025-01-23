@@ -1,5 +1,5 @@
 # Step 1: Use a lightweight base image for downloading the JAR
-FROM eclipse-temurin:21-jre AS downloader
+FROM eclipse-temurin:17-jre AS downloader
 
 # Define the Nexus repository and artifact details
 ARG NEXUS_URL=http://192.168.33.10:8081/repository/maven-releases/
