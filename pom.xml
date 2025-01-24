@@ -14,7 +14,7 @@
     <!-- Coordonnées du projet -->
     <groupId>tn.esprit</groupId>
     <artifactId>tp-foyer</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
     <packaging>jar</packaging> <!-- Assure que Maven génère un fichier JAR -->
     <name>tp-foyer</name>
     <description>tp-foyer</description>
