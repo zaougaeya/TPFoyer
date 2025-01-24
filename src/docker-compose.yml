@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   tp-foyer:
-    image: tp-foyer:5.0.0
+    image: nouha260/tp-foyer:5.0.1  # Mise à jour avec le nom de votre image Docker sur Docker Hub
     container_name: tp-foyer-container
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # Contexte de construction dans le répertoire courant
+      dockerfile: Dockerfile  # Utiliser le Dockerfile dans le répertoire courant
     ports:
-      - "8082:8082"  # Mappage du port 8089 comme spécifié dans le fichier application.properties
+      - "8082:8082"  # Mappage du port 8082 comme spécifié dans le fichier application.properties
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DATABASE_HOST: tp-foyer-db  # Nom du service de la base de données
