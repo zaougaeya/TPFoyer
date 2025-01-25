@@ -11,7 +11,7 @@ services:
       - "8082:8082"  # Mappage du port 8082
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DATABASE_HOST: tp-foyer-db  # Nom du service de la base de données
+      DATABASE_HOST: tp-foyer-db
     depends_on:
       - tp-foyer-db
     networks:
