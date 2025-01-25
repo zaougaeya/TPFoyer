@@ -1,7 +1,6 @@
 tn\esprit\tpfoyer\entity\TypeChambre.class
 tn\esprit\tpfoyer\TpFoyerApplication.class
 tn\esprit\tpfoyer\service\IUniversiteService.class
-tn\esprit\tpfoyer\service\UniversiteServiceTest.class
 tn\esprit\tpfoyer\entity\Bloc.class
 tn\esprit\tpfoyer\service\IEtudiantService.class
 tn\esprit\tpfoyer\service\IReservationService.class
