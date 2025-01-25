@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   mysqldb:
     image: mysql:8.0
@@ -17,9 +16,25 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/tpfoyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: "rootpass"
+      SPRING_DATASOURCE_PASSWORD: "root"
     ports:
       - 8089:8089
+    depends_on:
+      - mysqldb
+    networks:
+      - tpfoyer-network
+    stdin_open: true
+    tty: true
+
+  tpfoyer-worker: # Example of an additional service using the same image
+    image: ouma96/tpfoyer:etudiant
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/tpfoyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_PROFILES_ACTIVE: "worker" # Use this to differentiate behavior if applicable
+    ports:
+      - 8090:8089
     depends_on:
       - mysqldb
     networks:
