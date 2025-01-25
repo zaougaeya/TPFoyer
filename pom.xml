@@ -2,21 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>tn.esprit</groupId>
     <artifactId>tp-foyer</artifactId>
     <version>5.0.0</version>
-    <packaging>jar</packaging> <!-- Assure que Maven génère un fichier JAR -->
+    <packaging>jar</packaging>
     <name>tp-foyer</name>
     <description>tp-foyer</description>
+
     <properties>
         <java.version>17</java.version>
+        <!-- Indiquer où SonarQube peut trouver le rapport de couverture -->
+        <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,7 +65,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.0</version> <!-- Assurez-vous que cette version est compatible -->
+            <version>5.10.0</version>
         </dependency>
     </dependencies>
 
@@ -70,7 +76,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- Plugin pour les rapports de couverture de code -->
+
+            <!-- Plugin pour Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -78,13 +85,14 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>prepare-agent</goal>
-                            <goal>report</goal>
+                            <goal>prepare-agent</goal> <!-- Prépare l'agent Jacoco pour la couverture -->
+                            <goal>report</goal> <!-- Génère le rapport de couverture -->
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Plugin pour s'assurer que les tests sont correctement configurés -->
+
+            <!-- Plugin Surefire pour l'exécution des tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
