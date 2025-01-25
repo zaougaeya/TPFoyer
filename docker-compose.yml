@@ -22,7 +22,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: anwerhriz/tpfoyers:1.0.0
+    image: mariemarfaoui/tpfoyer
     restart: on-failure
     env_file: ./.env
     ports:
