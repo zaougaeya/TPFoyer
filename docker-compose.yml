@@ -23,7 +23,6 @@ services:
     depends_on:
       - mysqldb
     image: mariemarfaoui/tpfoyer:1.0.0
-
     restart: on-failure
     env_file: ./.env
     ports:
