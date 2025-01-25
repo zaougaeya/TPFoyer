@@ -1,4 +1,4 @@
-# Étape 1 : Utiliser une image de base Java
+# Étape 1 : Utiliser une image base Java
 FROM openjdk:17-jdk-alpine
 
 # Étape 2 : Définir le répertoire de travail dans le conteneur
