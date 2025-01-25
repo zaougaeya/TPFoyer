@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
@@ -38,3 +39,89 @@ networks:
 
 volumes:
   db-data:
+=======
+version: '3'
+services:
+  mysqldb:
+    image: mysql:8.0
+    networks:
+      - tpfoyer-network
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=tpfoyer
+    restart: unless-stopped
+
+  tpfoyer:
+    image: ouma96/tpfoyer:etudiant
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/tpfoyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "rootpass"
+    ports:
+      - 8089:8089
+    depends_on:
+      - mysqldb
+    networks:
+      - tpfoyer-network
+    stdin_open: true
+    tty: true
+
+  tpfoyer-worker: # Example of an additional service using the same image
+    image: ouma96/tpfoyer:etudiant
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/tpfoyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_PROFILES_ACTIVE: "worker" # Use this to differentiate behavior if applicable
+    ports:
+      - 8090:8089
+    depends_on:
+      - mysqldb
+    networks:
+      - tpfoyer-network
+    stdin_open: true
+    tty: true
+
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - "9002:9002"
+    networks:
+      - sonarnet
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+  nexus:
+    image: sonatype/nexus3
+    ports:
+      - "8082:8082"
+    networks:
+      - sonarnet
+    volumes:
+      - nexus-data:/nexus-data
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9093:9093"
+    networks:
+      - monitoring-net
+    volumes:
+      - prometheus_data:/etc/prometheus
+
+networks:
+  sonarnet:
+  tpfoyer-network:
+    driver: bridge
+  monitoring-net:
+    driver: bridge
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  nexus-data:
+  prometheus_data:
+>>>>>>> 9d221bd1950b60106086a498aa1ebce782981bda
